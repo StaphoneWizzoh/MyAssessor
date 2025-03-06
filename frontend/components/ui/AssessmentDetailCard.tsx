@@ -5,7 +5,6 @@ import { LinearGradient } from "expo-linear-gradient";
 export default function AssessmentDetailCard({ assessment }) {
     return (
         <View>
-            {/* Main gradient container */}
             <LinearGradient
                 colors={["#27487F", "#52B6DF"]}
                 style={styles.container}
@@ -18,8 +17,8 @@ export default function AssessmentDetailCard({ assessment }) {
                 <View style={styles.ellipseLeftMedium} />
                 <View style={styles.ellipseLeftSmall} />
 
-                {/* Text info block */}
-                <View style={styles.infoContainer}>
+                {/* All content inside a padded container so text is readable */}
+                <View style={styles.contentContainer}>
                     <Text style={styles.infoText}>
                         Name: {assessment.title}
                         {"\n"}
@@ -38,59 +37,72 @@ export default function AssessmentDetailCard({ assessment }) {
                     </View>
 
                     <Text style={styles.infoText}>Date: {assessment.date}</Text>
-                </View>
 
-                {/* Performance levels */}
-                <View style={styles.performanceContainer}>
-                    <View style={styles.performanceBox}>
-                        <Text style={styles.performanceNumber}>
-                            {assessment.belowExpectations}
-                        </Text>
-                        <Text style={styles.performanceLabel}>
-                            Below{"\n"}Expectations
-                        </Text>
-                    </View>
+                    {/* Performance row */}
+                    <View style={styles.performanceRow}>
+                        {/* Below Expectations */}
+                        <View
+                            style={[
+                                styles.performanceBox,
+                                { backgroundColor: "#C43D28" },
+                            ]}
+                        >
+                            <Text style={styles.performanceEmoji}>😕</Text>
+                            <Text style={styles.performanceNumber}>
+                                {assessment.belowExpectations}
+                            </Text>
+                            <Text style={styles.performanceLabel}>
+                                Below Expectations
+                            </Text>
+                        </View>
 
-                    <View
-                        style={[
-                            styles.performanceBox,
-                            { backgroundColor: "#FBBC05" },
-                        ]}
-                    >
-                        <Text style={styles.performanceNumber}>
-                            {assessment.approaching}
-                        </Text>
-                        <Text style={styles.performanceLabel}>
-                            Approaching{"\n"}Expectations
-                        </Text>
-                    </View>
+                        {/* Approaching Expectations */}
+                        <View
+                            style={[
+                                styles.performanceBox,
+                                { backgroundColor: "#FBBC05" },
+                            ]}
+                        >
+                            <Text style={styles.performanceEmoji}>😐</Text>
+                            <Text style={styles.performanceNumber}>
+                                {assessment.approaching}
+                            </Text>
+                            <Text style={styles.performanceLabel}>
+                                Approaching Expectations
+                            </Text>
+                        </View>
 
-                    <View
-                        style={[
-                            styles.performanceBox,
-                            { backgroundColor: "#71BD4E" },
-                        ]}
-                    >
-                        <Text style={styles.performanceNumber}>
-                            {assessment.meeting}
-                        </Text>
-                        <Text style={styles.performanceLabel}>
-                            Meeting{"\n"}Expectations
-                        </Text>
-                    </View>
+                        {/* Meeting Expectations */}
+                        <View
+                            style={[
+                                styles.performanceBox,
+                                { backgroundColor: "#71BD4E" },
+                            ]}
+                        >
+                            <Text style={styles.performanceEmoji}>🙂</Text>
+                            <Text style={styles.performanceNumber}>
+                                {assessment.meeting}
+                            </Text>
+                            <Text style={styles.performanceLabel}>
+                                Meeting Expectations
+                            </Text>
+                        </View>
 
-                    <View
-                        style={[
-                            styles.performanceBox,
-                            { backgroundColor: "#0056D2" },
-                        ]}
-                    >
-                        <Text style={styles.performanceNumber}>
-                            {assessment.exceeding}
-                        </Text>
-                        <Text style={styles.performanceLabel}>
-                            Exceeding{"\n"}Expectations
-                        </Text>
+                        {/* Exceeding Expectations */}
+                        <View
+                            style={[
+                                styles.performanceBox,
+                                { backgroundColor: "#0056D2" },
+                            ]}
+                        >
+                            <Text style={styles.performanceEmoji}>😃</Text>
+                            <Text style={styles.performanceNumber}>
+                                {assessment.exceeding}
+                            </Text>
+                            <Text style={styles.performanceLabel}>
+                                Exceeding Expectations
+                            </Text>
+                        </View>
                     </View>
                 </View>
             </LinearGradient>
@@ -99,22 +111,28 @@ export default function AssessmentDetailCard({ assessment }) {
 }
 
 const styles = StyleSheet.create({
-    // Card container with gradient
     container: {
+        marginTop: 16,
         width: 365,
         height: 282,
         borderRadius: 20,
         overflow: "hidden",
-        padding: 20,
         position: "relative",
     },
+    // Padded container so text and performance boxes are not behind ellipses
+    contentContainer: {
+        padding: 20,
+        flex: 1,
+        justifyContent: "center",
+    },
+
     // Semi-transparent ellipses (right side)
     ellipseRightLarge: {
         position: "absolute",
         width: 217.66,
         height: 295.1,
         left: 251.94,
-        top: 104.47,
+        top: 0, // Shifted upward from original
         backgroundColor: "#FFFFFF",
         opacity: 0.1,
         borderRadius: 295.1 / 2,
@@ -124,7 +142,7 @@ const styles = StyleSheet.create({
         width: 135.06,
         height: 183.11,
         left: 293.24,
-        top: 160.46,
+        top: 60, // Shifted upward
         backgroundColor: "#FFFFFF",
         opacity: 0.1,
         borderRadius: 183.11 / 2,
@@ -134,18 +152,19 @@ const styles = StyleSheet.create({
         width: 70.32,
         height: 95.34,
         left: 325.61,
-        top: 204.35,
+        top: 120, // Shifted upward
         backgroundColor: "#FFFFFF",
         opacity: 0.1,
         borderRadius: 95.34 / 2,
     },
+
     // Semi-transparent ellipses (left side)
     ellipseLeftLarge: {
         position: "absolute",
         width: 111.62,
         height: 151.33,
         left: -21.53,
-        top: 104.47,
+        top: 0, // Shifted upward
         backgroundColor: "#FFFFFF",
         opacity: 0.1,
         borderRadius: 151.33 / 2,
@@ -155,7 +174,7 @@ const styles = StyleSheet.create({
         width: 69.26,
         height: 93.9,
         left: -0.35,
-        top: 133.18,
+        top: 40, // Shifted upward
         backgroundColor: "#FFFFFF",
         opacity: 0.1,
         borderRadius: 93.9 / 2,
@@ -165,15 +184,13 @@ const styles = StyleSheet.create({
         width: 36.06,
         height: 48.89,
         left: 16.25,
-        top: 155.69,
+        top: 62, // Shifted upward
         backgroundColor: "#FFFFFF",
         opacity: 0.1,
         borderRadius: 48.89 / 2,
     },
-    // Container for text info
-    infoContainer: {
-        marginTop: 24,
-    },
+
+    // Text info
     infoText: {
         fontFamily: "Poppins",
         fontSize: 13,
@@ -183,6 +200,7 @@ const styles = StyleSheet.create({
         fontWeight: "500",
         marginBottom: 2,
     },
+
     // Completion pill
     completionPill: {
         alignSelf: "flex-start",
@@ -198,31 +216,34 @@ const styles = StyleSheet.create({
         fontSize: 13,
         fontWeight: "500",
     },
-    // Performance boxes row
-    performanceContainer: {
+
+    // Performance row
+    performanceRow: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: 35,
-        paddingHorizontal: 4,
+        marginTop: 20,
     },
     performanceBox: {
         width: 70,
         height: 70,
         borderRadius: 10,
-        backgroundColor: "#C43D28", // default to red
         justifyContent: "center",
         alignItems: "center",
+        padding: 4,
+    },
+    performanceEmoji: {
+        fontSize: 20,
+        marginBottom: 2,
     },
     performanceNumber: {
         color: "#FFFFFF",
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: "bold",
-        marginBottom: 2,
     },
     performanceLabel: {
         color: "#FFFFFF",
         fontSize: 10,
         textAlign: "center",
-        lineHeight: 14,
+        marginTop: 2,
     },
 });
