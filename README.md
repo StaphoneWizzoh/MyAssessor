@@ -1,191 +1,158 @@
-# MyAssessor
-
-A mobile assessment management application for educators to track and manage student assessments.
+# MyAssessor - Project README
 
 ## Project Overview
 
-MyAssessor is a comprehensive tool designed for educators to manage student assessments, track attendance, and monitor class performance. The application allows teachers to create assessments, view analytics, and organize their daily teaching activities.
+MyAssessor is a mobile application for educators to manage student assessments, track attendance, and monitor class performance. Built with React Native and Expo, it uses JSON Server as a lightweight backend.
 
-## Tech Stack
+## GitHub Repository
 
--   **Frontend**: React Native with Expo
--   **Backend**: JSON Server (REST API)
--   **State Management**: Redux Toolkit
--   **Styling**: StyleSheet API and Expo Linear Gradient
+```
+https://github.com/yourusername/MyAssessor
+```
 
-## Getting Started
+## Setup & Running the Application
 
 ### Prerequisites
 
--   Node.js (v16 or higher)
+-   Node.js (v16+)
 -   npm or yarn
--   Expo CLI (`npm install -g expo-cli`)
--   Expo Go app (for mobile testing)
+-   Android Studio with emulator configured
+-   Android SDK installed
 
-### Installation
+### Backend Setup
 
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/yourusername/MyAssessor.git
-    cd MyAssessor
-    ```
-
-2. Install backend dependencies:
+1. Install JSON Server:
 
     ```bash
-    cd backend
     npm install -g json-server
     ```
 
-3. Install frontend dependencies:
-    ```bash
-    cd ../frontend
-    npm install
-    ```
-
-## Running the Application
-
-### Backend
-
-1. Start the JSON Server:
-
+2. Start the backend:
     ```bash
     cd backend
     json-server --watch db.json --port 3000
     ```
 
-    The API will be available at:
+### Frontend Setup
 
-    - http://localhost:3000/assessments
-
-### Frontend
-
-#### For Web Development:
-
-1. Start the Expo development server:
+1. Install dependencies:
 
     ```bash
     cd frontend
-    npm start
+    npm install
     ```
 
-2. Press `w` to open in web browser.
-
-#### For Mobile Development with Connection to Local Backend:
-
-Since mobile devices cannot directly access your computer's localhost, you need to:
-
-1. Find your computer's local IP address:
-
-    - On Windows: Open Command Prompt and type `ipconfig`
-    - On macOS/Linux: Open Terminal and type `ifconfig` or `ip addr`
-
-2. Update the API base URL in `frontend/features/assessment/crud.ts`:
-
-    ```typescript
-    // Replace this:
-    const BASE_URL = "http://localhost:3000/assessments";
-
-    // With your computer's local IP:
-    const BASE_URL = "http://YOUR_LOCAL_IP:3000/assessments";
-    ```
-
-3. Start the Expo development server:
-
-    ```bash
-    cd frontend
-    npm start
-    ```
-
-4. Scan the QR code with Expo Go app on your mobile device (ensure your mobile device is on the same WiFi network as your computer).
-
-#### Alternative Solution Using Expo Dev Client:
-
-For a more robust development experience that better handles local APIs:
-
-1. Install the Expo Dev Client:
-
+2. Install Expo Dev Client (required for local API access):
     ```bash
     npx expo install expo-dev-client
     ```
 
-2. Build a development build:
+### Android SDK Configuration
+
+If you encounter the error about Android SDK path:
+
+1. Install Android Studio from [developer.android.com](https://developer.android.com/studio)
+2. During installation, ensure "Android SDK" is selected
+3. Set the `ANDROID_HOME` environment variable:
+
+    **Windows:**
+
+    ```
+    setx ANDROID_HOME "C:\Users\YourUsername\AppData\Local\Android\Sdk"
+    ```
+
+    **macOS/Linux:**
+
+    ```
+    export ANDROID_HOME=~/Library/Android/sdk
+    ```
+
+4. Add platform-tools to your PATH:
+
+    **Windows:**
+
+    ```
+    setx PATH "%PATH%;%ANDROID_HOME%\platform-tools"
+    ```
+
+    **macOS/Linux:**
+
+    ```
+    export PATH=$PATH:$ANDROID_HOME/platform-tools
+    ```
+
+5. Create an Android emulator:
+    - Open Android Studio
+    - Click "More Actions" > "Virtual Device Manager"
+    - Click "Create Device"
+    - Select a phone (e.g., Pixel 6) and click "Next"
+    - Download a system image (e.g., API 33) and click "Next"
+    - Name your emulator and click "Finish"
+
+### Running the Application
+
+1. Start your Android emulator through Android Studio
+
+2. Build and run on the emulator:
+
     ```bash
+    cd frontend
     npx expo prebuild
-    npx expo run:android  # For Android
-    npx expo run:ios      # For iOS
+    npx expo run:android
+    ```
+
+3. The app will launch automatically in your emulator with proper connectivity to your local backend
+
+## Troubleshooting
+
+### Android SDK Not Found
+
+If you continue having issues with Android SDK detection:
+
+1. Create a `local.properties` file in the `android` folder:
+
+    ```
+    sdk.dir=C:\\Users\\YourUsername\\AppData\\Local\\Android\\Sdk
+    ```
+
+    (Use correct path format for your OS)
+
+2. For Genymotion users:
+    - Go to Settings → ADB
+    - Select "Use custom Android SDK tools"
+    - Point to your Android SDK directory
+
+### Axios Connection Issues
+
+If the app can't connect to the backend:
+
+1. Ensure your emulator is running
+2. Update the API URL in crud.ts:
+    ```typescript
+    const BASE_URL = "http://10.0.2.2:3000/assessments"; // Special IP for Android emulator
     ```
 
 ## Design Decisions
 
 ### Architecture
 
--   **Tab-based Navigation**: The app uses a tab-based navigation system for easy access to key features (Home, Students, Assessment, Class, Attendance).
--   **Redux Toolkit**: Used for state management with async thunks to handle API requests.
--   **Reusable Components**: Components like `AssessmentDetailCard` and `ScreenWithBackground` promote code reusability.
+-   **Tab Navigation**: Provides easy access to main features
+-   **Redux Toolkit**: Manages application state and API calls
+-   **Reusable Components**: Maximizes code reuse and maintainability
 
 ### UI/UX Design
 
--   **Dark Theme**: The app uses a dark blue theme (`#162947`) which is easier on the eyes for teachers who might use the app throughout the day.
--   **Linear Gradient Cards**: Used to create visually appealing cards that highlight important information.
--   **Haptic Feedback**: Added haptic feedback to tabs for better user experience on iOS.
+-   **Dark Theme**: Easier on users' eyes for extended use
+-   **Linear Gradient Cards**: Visual hierarchy for important information
+-   **Haptic Feedback**: Enhanced physical interaction on iOS
 
 ### Data Structure
 
--   The app organizes assessments with fields for title, strand, subStrand, completion status, and dates.
--   Assessments can be marked as all-day events and can have alerts set.
-
-## Testing
-
-### Manual Testing
-
-1. **Creating Assessments**:
-
-    - Navigate to the Assessment tab
-    - Tap the "+" button
-    - Fill in the assessment details
-    - Save and verify the assessment appears in the list
-
-2. **Viewing Assessments**:
-
-    - Check that all created assessments are visible in the Assessment tab
-    - Verify the completion status and other details are displayed correctly
-
-3. **Backend Integration**:
-    - Check that API calls are working correctly
-    - Verify data persistence by reloading the app
-
-## Troubleshooting
-
-### Mobile-Backend Connection Issues
-
-If you're having trouble connecting to the backend from a mobile device:
-
-1. **Network Configuration**:
-
-    - Ensure your mobile device and computer are on the same network
-    - Check if your computer firewall allows connections to port 3000
-
-2. **Using Ngrok for External Access**:
-
-    - Install ngrok: `npm install -g ngrok`
-    - Expose your local server: `ngrok http 3000`
-    - Use the ngrok URL in your app: `const BASE_URL = "https://your-ngrok-url.ngrok.io/assessments";`
-
-3. **Expo Connection Settings**:
-    - In the Expo developer menu, try switching the "Connection" from "LAN" to "Tunnel"
+-   Assessment data model includes title, strand, subStrand, completion status
+-   JSON Server provides simple REST API for CRUD operations
 
 ## Assumptions
 
-1. **User Context**: The app assumes the user is a teacher managing multiple classes and students.
-2. **Data Persistence**: The current implementation uses JSON Server for demonstration purposes. In a production environment, a more robust database solution would be needed.
-3. **Single User**: The current version assumes a single user and doesn't include authentication.
-
-## Future Enhancements
-
--   User authentication and authorization
--   Integration with school management systems
--   Offline support with data synchronization
--   Student progress tracking over time
--   Export of assessment data to various formats
+1. Single user (teacher) managing multiple classes
+2. Simple data model sufficient for demonstration purposes
+3. Internet connectivity available for API calls
