@@ -7,7 +7,7 @@ MyAssessor is a mobile application for educators to manage student assessments, 
 ## GitHub Repository
 
 ```
-https://github.com/yourusername/MyAssessor
+https://github.com/StaphoneWizzoh/MyAssessor/
 ```
 
 ## Setup & Running the Application
