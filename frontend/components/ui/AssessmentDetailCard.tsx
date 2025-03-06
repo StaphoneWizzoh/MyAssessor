@@ -1,151 +1,228 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function AssessmentDetailCard({ assessment }) {
     return (
-        <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <Text style={styles.headerText}>Name: {assessment.title}</Text>
-                <Text style={styles.subHeaderText}>
-                    Strand: {assessment.strand}
-                </Text>
-                <Text style={styles.subHeaderText}>
-                    Sub Strand: {assessment.subStrand}
-                </Text>
-                <View style={styles.completionContainer}>
-                    <Text style={styles.completionText}>
-                        Completion: {assessment.completion}
+        <View>
+            {/* Main gradient container */}
+            <LinearGradient
+                colors={["#27487F", "#52B6DF"]}
+                style={styles.container}
+            >
+                {/* Semi-transparent ellipses for background styling */}
+                <View style={styles.ellipseRightLarge} />
+                <View style={styles.ellipseRightMedium} />
+                <View style={styles.ellipseRightSmall} />
+                <View style={styles.ellipseLeftLarge} />
+                <View style={styles.ellipseLeftMedium} />
+                <View style={styles.ellipseLeftSmall} />
+
+                {/* Text info block */}
+                <View style={styles.infoContainer}>
+                    <Text style={styles.infoText}>
+                        Name: {assessment.title}
+                        {"\n"}
+                        Strand: {assessment.strand}
+                        {"\n"}
+                        Sub Strand: {assessment.subStrand}
+                        {"\n"}
+                        Completion:
                     </Text>
-                </View>
-                <Text style={styles.dateText}>Date: {assessment.date}</Text>
-            </View>
 
-            <View style={styles.performanceLevelsContainer}>
-                <Text style={styles.performanceLevelsTitle}>
-                    Performance Levels
-                </Text>
+                    {/* Completion pill */}
+                    <View style={styles.completionPill}>
+                        <Text style={styles.completionPillText}>
+                            {assessment.completion}%
+                        </Text>
+                    </View>
 
-                <View style={styles.levelRowContainer}>
-                    <View
-                        style={[
-                            styles.levelBox,
-                            { backgroundColor: "#FF4136" },
-                        ]}
-                    >
-                        <Text style={styles.levelBoxNumber}>5</Text>
-                        <Text style={styles.levelBoxText}>
-                            Below Expectations
+                    <Text style={styles.infoText}>Date: {assessment.date}</Text>
+                </View>
+
+                {/* Performance levels */}
+                <View style={styles.performanceContainer}>
+                    <View style={styles.performanceBox}>
+                        <Text style={styles.performanceNumber}>
+                            {assessment.belowExpectations}
+                        </Text>
+                        <Text style={styles.performanceLabel}>
+                            Below{"\n"}Expectations
                         </Text>
                     </View>
+
                     <View
                         style={[
-                            styles.levelBox,
-                            { backgroundColor: "#FF851B" },
+                            styles.performanceBox,
+                            { backgroundColor: "#FBBC05" },
                         ]}
                     >
-                        <Text style={styles.levelBoxNumber}>25</Text>
-                        <Text style={styles.levelBoxText}>
-                            Approaching Expectations
+                        <Text style={styles.performanceNumber}>
+                            {assessment.approaching}
+                        </Text>
+                        <Text style={styles.performanceLabel}>
+                            Approaching{"\n"}Expectations
                         </Text>
                     </View>
+
                     <View
                         style={[
-                            styles.levelBox,
-                            { backgroundColor: "#2ECC40" },
+                            styles.performanceBox,
+                            { backgroundColor: "#71BD4E" },
                         ]}
                     >
-                        <Text style={styles.levelBoxNumber}>20</Text>
-                        <Text style={styles.levelBoxText}>
-                            Meeting Expectations
+                        <Text style={styles.performanceNumber}>
+                            {assessment.meeting}
+                        </Text>
+                        <Text style={styles.performanceLabel}>
+                            Meeting{"\n"}Expectations
                         </Text>
                     </View>
+
                     <View
                         style={[
-                            styles.levelBox,
-                            { backgroundColor: "#0074D9" },
+                            styles.performanceBox,
+                            { backgroundColor: "#0056D2" },
                         ]}
                     >
-                        <Text style={styles.levelBoxNumber}>50</Text>
-                        <Text style={styles.levelBoxText}>
-                            Exceeding Expectations
+                        <Text style={styles.performanceNumber}>
+                            {assessment.exceeding}
+                        </Text>
+                        <Text style={styles.performanceLabel}>
+                            Exceeding{"\n"}Expectations
                         </Text>
                     </View>
                 </View>
-            </View>
+            </LinearGradient>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    // Card container with gradient
     container: {
-        flex: 1,
-        backgroundColor: "#1A2B3C", // Dark background similar to the image
+        width: 365,
+        height: 282,
+        borderRadius: 20,
+        overflow: "hidden",
         padding: 20,
+        position: "relative",
     },
-    headerContainer: {
-        borderRadius: 10,
-        padding: 15,
-        marginBottom: 20,
+    // Semi-transparent ellipses (right side)
+    ellipseRightLarge: {
+        position: "absolute",
+        width: 217.66,
+        height: 295.1,
+        left: 251.94,
+        top: 104.47,
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 295.1 / 2,
     },
-    headerText: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "bold",
-        marginBottom: 5,
+    ellipseRightMedium: {
+        position: "absolute",
+        width: 135.06,
+        height: 183.11,
+        left: 293.24,
+        top: 160.46,
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 183.11 / 2,
     },
-    subHeaderText: {
-        color: "white",
-        fontSize: 16,
-        marginBottom: 5,
+    ellipseRightSmall: {
+        position: "absolute",
+        width: 70.32,
+        height: 95.34,
+        left: 325.61,
+        top: 204.35,
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 95.34 / 2,
     },
-    completionContainer: {
-        backgroundColor: "#2ECC40", // Green color for completion
+    // Semi-transparent ellipses (left side)
+    ellipseLeftLarge: {
+        position: "absolute",
+        width: 111.62,
+        height: 151.33,
+        left: -21.53,
+        top: 104.47,
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 151.33 / 2,
+    },
+    ellipseLeftMedium: {
+        position: "absolute",
+        width: 69.26,
+        height: 93.9,
+        left: -0.35,
+        top: 133.18,
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 93.9 / 2,
+    },
+    ellipseLeftSmall: {
+        position: "absolute",
+        width: 36.06,
+        height: 48.89,
+        left: 16.25,
+        top: 155.69,
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 48.89 / 2,
+    },
+    // Container for text info
+    infoContainer: {
+        marginTop: 24,
+    },
+    infoText: {
+        fontFamily: "Poppins",
+        fontSize: 13,
+        lineHeight: 22,
+        letterSpacing: 0.2,
+        color: "#FFFFFF",
+        fontWeight: "500",
+        marginBottom: 2,
+    },
+    // Completion pill
+    completionPill: {
         alignSelf: "flex-start",
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        borderRadius: 5,
-        marginVertical: 10,
+        backgroundColor: "#46BD84",
+        borderRadius: 30,
+        paddingHorizontal: 12,
+        paddingVertical: 4,
+        marginVertical: 4,
     },
-    completionText: {
-        color: "white",
-        fontWeight: "bold",
+    completionPillText: {
+        color: "#FFFFFF",
+        fontFamily: "Poppins",
+        fontSize: 13,
+        fontWeight: "500",
     },
-    dateText: {
-        color: "white",
-        fontSize: 14,
-    },
-    performanceLevelsContainer: {
-        borderRadius: 10,
-        padding: 15,
-    },
-    performanceLevelsTitle: {
-        color: "white",
-        fontSize: 16,
-        fontWeight: "bold",
-        marginBottom: 10,
-        textAlign: "center",
-    },
-    levelRowContainer: {
+    // Performance boxes row
+    performanceContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
+        marginTop: 35,
+        paddingHorizontal: 4,
     },
-    levelBox: {
-        width: "22%",
-        aspectRatio: 1,
+    performanceBox: {
+        width: 70,
+        height: 70,
         borderRadius: 10,
+        backgroundColor: "#C43D28", // default to red
         justifyContent: "center",
         alignItems: "center",
-        padding: 5,
     },
-    levelBoxNumber: {
-        color: "white",
-        fontSize: 18,
+    performanceNumber: {
+        color: "#FFFFFF",
+        fontSize: 16,
         fontWeight: "bold",
-        marginBottom: 5,
+        marginBottom: 2,
     },
-    levelBoxText: {
-        color: "white",
+    performanceLabel: {
+        color: "#FFFFFF",
         fontSize: 10,
         textAlign: "center",
+        lineHeight: 14,
     },
 });
