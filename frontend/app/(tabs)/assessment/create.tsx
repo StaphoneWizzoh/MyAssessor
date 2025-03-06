@@ -25,7 +25,7 @@ export default function CreateAssessment() {
     const [strand, setStrand] = useState("Letter Naming Uppercase");
     const [subStrand, setSubStrand] = useState("A B C D E");
     const [isAllDay, setIsAllDay] = useState(true);
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(new Date().toLocaleDateString());
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [formattedDate, setFormattedDate] = useState("");
     const [isAlertEnabled, setIsAlertEnabled] = useState(true);
@@ -57,7 +57,7 @@ export default function CreateAssessment() {
             subStrand: subStrand,
             allDay: isAllDay,
             alert: isAlertEnabled,
-            completion: "",
+            completion: "0%",
             date: String(date),
         };
         dispatch(newAssessment(formData));
@@ -112,7 +112,8 @@ export default function CreateAssessment() {
             return `${dayName}, ${day}${getDaySuffix(day)} ${month}`;
         };
 
-        setFormattedDate(formatDate(date));
+        // setFormattedDate(formatDate(date));
+        setFormattedDate(date);
     }, [date]);
 
     return (
