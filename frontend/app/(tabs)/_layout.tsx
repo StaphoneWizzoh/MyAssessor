@@ -51,7 +51,11 @@ export default function TabLayout() {
                     fontFamily: "Poppins",
                     fontWeight: 500,
                 },
-                tabBarStyle: { position: "absolute", height: 64 },
+                tabBarStyle: {
+                    position: "absolute",
+                    height: 72,
+                    paddingTop: 12,
+                },
             }}
         >
             <Tabs.Screen
