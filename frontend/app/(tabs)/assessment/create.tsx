@@ -134,6 +134,9 @@ export default function CreateAssessment() {
                                 placeholderTextColor="rgba(255,255,255,0.5)"
                                 value={title}
                                 onChangeText={setTitle}
+                                selectionColor="rgba(255,255,255,0.3)"
+                                cursorColor="white"
+                                underlineColorAndroid="transparent"
                             />
                         </View>
 
