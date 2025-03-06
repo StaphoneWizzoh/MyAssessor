@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import Entypo from "@expo/vector-icons/Entypo";
 
 export default function AssessmentDetailCard({ assessment }) {
     return (
@@ -27,27 +28,41 @@ export default function AssessmentDetailCard({ assessment }) {
                         Sub Strand: {assessment.subStrand}
                         {"\n"}
                         Completion:
+                        <View style={styles.completionPill}>
+                            <Text style={styles.completionPillText}>
+                                {assessment.completion}
+                            </Text>
+                        </View>
                     </Text>
 
-                    {/* Completion pill */}
-                    <View style={styles.completionPill}>
-                        <Text style={styles.completionPillText}>
-                            {assessment.completion}%
-                        </Text>
-                    </View>
-
                     <Text style={styles.infoText}>Date: {assessment.date}</Text>
+
+                    {/* Performance Bars */}
+                    <View style={styles.barsContainer}>
+                        <View style={[styles.bar, styles.barNegative]}>
+                            <Text style={styles.barText}>5</Text>
+                        </View>
+                        <View style={[styles.bar, styles.barApproaching]}>
+                            <Text style={styles.barText}>25</Text>
+                        </View>
+                        <View style={[styles.bar, styles.barMeeting]}>
+                            <Text style={styles.barText}>20</Text>
+                        </View>
+                        <View style={[styles.bar, styles.barExceeding]}>
+                            <Text style={styles.barText}>50</Text>
+                        </View>
+                    </View>
 
                     {/* Performance row */}
                     <View style={styles.performanceRow}>
                         {/* Below Expectations */}
-                        <View
-                            style={[
-                                styles.performanceBox,
-                                { backgroundColor: "#C43D28" },
-                            ]}
-                        >
-                            <Text style={styles.performanceEmoji}>😕</Text>
+                        <View style={[styles.performanceBox]}>
+                            <Entypo
+                                name="emoji-sad"
+                                size={24}
+                                color="#C43D28"
+                                style={styles.performanceEmojiBelow}
+                            />
                             <Text style={styles.performanceNumber}>
                                 {assessment.belowExpectations}
                             </Text>
@@ -57,13 +72,13 @@ export default function AssessmentDetailCard({ assessment }) {
                         </View>
 
                         {/* Approaching Expectations */}
-                        <View
-                            style={[
-                                styles.performanceBox,
-                                { backgroundColor: "#FBBC05" },
-                            ]}
-                        >
-                            <Text style={styles.performanceEmoji}>😐</Text>
+                        <View style={[styles.performanceBox]}>
+                            <Entypo
+                                name="emoji-sad"
+                                size={24}
+                                color="#FBBC05"
+                                style={styles.performanceEmojiApproaching}
+                            />
                             <Text style={styles.performanceNumber}>
                                 {assessment.approaching}
                             </Text>
@@ -73,13 +88,13 @@ export default function AssessmentDetailCard({ assessment }) {
                         </View>
 
                         {/* Meeting Expectations */}
-                        <View
-                            style={[
-                                styles.performanceBox,
-                                { backgroundColor: "#71BD4E" },
-                            ]}
-                        >
-                            <Text style={styles.performanceEmoji}>🙂</Text>
+                        <View style={[styles.performanceBox]}>
+                            <Entypo
+                                name="emoji-sad"
+                                size={24}
+                                color="#71BD4E"
+                                style={styles.performanceEmojiMeeting}
+                            />
                             <Text style={styles.performanceNumber}>
                                 {assessment.meeting}
                             </Text>
@@ -89,13 +104,13 @@ export default function AssessmentDetailCard({ assessment }) {
                         </View>
 
                         {/* Exceeding Expectations */}
-                        <View
-                            style={[
-                                styles.performanceBox,
-                                { backgroundColor: "#0056D2" },
-                            ]}
-                        >
-                            <Text style={styles.performanceEmoji}>😃</Text>
+                        <View style={[styles.performanceBox]}>
+                            <Entypo
+                                name="emoji-sad"
+                                size={24}
+                                color="#0056D2"
+                                style={styles.performanceEmojiExceed}
+                            />
                             <Text style={styles.performanceNumber}>
                                 {assessment.exceeding}
                             </Text>
@@ -121,7 +136,7 @@ const styles = StyleSheet.create({
     },
     // Padded container so text and performance boxes are not behind ellipses
     contentContainer: {
-        padding: 20,
+        padding: 16,
         flex: 1,
         justifyContent: "center",
     },
@@ -201,12 +216,58 @@ const styles = StyleSheet.create({
         marginBottom: 2,
     },
 
+    bar: {
+        height: 24,
+        borderRadius: 12,
+        marginRight: 10,
+        justifyContent: "center", // Center text vertically
+        alignItems: "center", // Center text horizontally
+    },
+    barText: {
+        color: "#FFFFFF",
+        fontSize: 12,
+        fontWeight: "bold",
+        textAlign: "center",
+        paddingTop: 4,
+    },
+
+    barsContainer: {
+        width: 320,
+        height: 24,
+        marginTop: 12,
+        marginBottom: 12,
+        flexDirection: "row",
+        alignItems: "flex-end",
+    },
+    bar: {
+        height: 24,
+        borderRadius: 12,
+        marginRight: 10,
+    },
+    barNegative: {
+        width: 30,
+        backgroundColor: "#C43D28",
+    },
+    barApproaching: {
+        width: 70,
+        backgroundColor: "#FBBC05",
+    },
+    barMeeting: {
+        width: 70,
+        backgroundColor: "#71BD4E",
+    },
+    barExceeding: {
+        width: 137,
+        backgroundColor: "#0056D2",
+    },
+
     // Completion pill
     completionPill: {
         alignSelf: "flex-start",
         backgroundColor: "#46BD84",
         borderRadius: 30,
         paddingHorizontal: 12,
+        marginHorizontal: 16,
         paddingVertical: 4,
         marginVertical: 4,
     },
@@ -231,7 +292,19 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 4,
     },
-    performanceEmoji: {
+    performanceEmojiBelow: {
+        fontSize: 20,
+        marginBottom: 2,
+    },
+    performanceEmojiApproaching: {
+        fontSize: 20,
+        marginBottom: 2,
+    },
+    performanceEmojiMeeting: {
+        fontSize: 20,
+        marginBottom: 2,
+    },
+    performanceEmojiExceed: {
         fontSize: 20,
         marginBottom: 2,
     },
