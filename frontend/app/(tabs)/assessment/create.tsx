@@ -171,19 +171,34 @@ export default function CreateAssessment() {
                             </TouchableOpacity>
                         </View>
 
-                        <View style={styles.toggleContainer}>
-                            <Text style={styles.labelText}>All day</Text>
+                        <View
+                            style={{
+                                height: 1,
+                                width: "100%",
+                                backgroundColor: "rgba(255,255,255,0.2)",
+                                marginVertical: 20,
+                            }}
+                        />
+
+                        <View style={styles.switchRow}>
+                            <Text style={styles.switchLabel}>All day</Text>
                             <Switch
                                 trackColor={{
                                     false: "#767577",
-                                    true: "#81b0ff",
+                                    true: "#4AD2C9",
                                 }}
-                                thumbColor={isAllDay ? "#f5dd4b" : "#f4f3f4"}
+                                thumbColor="#FFFFFF"
                                 ios_backgroundColor="#3e3e3e"
                                 onValueChange={setIsAllDay}
                                 value={isAllDay}
                             />
                         </View>
+
+                        {isAllDay && (
+                            <Text style={styles.dateText}>
+                                Monday, 18th Oct
+                            </Text>
+                        )}
 
                         <View style={styles.toggleContainer}>
                             <Text style={styles.labelText}>Alert</Text>
@@ -200,13 +215,13 @@ export default function CreateAssessment() {
                                     onValueChange={setIsAlertEnabled}
                                     value={isAlertEnabled}
                                 />
-                                {isAlertEnabled && (
-                                    <Text style={styles.alertText}>
-                                        1 day before class
-                                    </Text>
-                                )}
                             </View>
                         </View>
+                        {isAlertEnabled && (
+                            <Text style={styles.alertText}>
+                                1 day before class
+                            </Text>
+                        )}
                     </View>
                 </ScrollView>
                 <View style={styles.buttonContainer}>
@@ -329,6 +344,14 @@ export default function CreateAssessment() {
 }
 
 const styles = StyleSheet.create({
+    dateText: {
+        fontSize: 14,
+        fontWeight: "700",
+        color: "#80B3FF",
+        marginTop: 4,
+        marginBottom: 16,
+        // Align it with the rest of the inputs
+    },
     safeArea: {
         flex: 1,
         width: "100%",
@@ -384,7 +407,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 12,
         color: "white",
-        backgroundColor: "rgba(255,255,255,0.1)",
+        backgroundColor: "transparent",
     },
     dropdownContainer: {
         height: 50,
@@ -395,7 +418,18 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 12,
-        backgroundColor: "rgba(255,255,255,0.1)",
+        backgroundColor: "rgba(255,255,255,0)",
+    },
+    switchRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 16,
+        justifyContent: "space-between",
+    },
+    switchLabel: {
+        fontSize: 14,
+        fontWeight: "700",
+        color: "#FFFFFF",
     },
     dropdownText: {
         color: "white",
@@ -411,8 +445,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     alertText: {
-        marginLeft: 10,
-        color: "white",
+        // marginLeft: 10,
+        // color: "white",
+        fontSize: 14,
+        fontWeight: "700",
+        color: "#80B3FF",
+        marginBottom: 16,
     },
     buttonContainer: {
         position: "absolute",
