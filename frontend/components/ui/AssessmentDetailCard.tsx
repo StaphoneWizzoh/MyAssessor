@@ -1,153 +1,322 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import Entypo from "@expo/vector-icons/Entypo";
 
 export default function AssessmentDetailCard({ assessment }) {
     return (
-        <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <Text style={styles.headerText}>Name: {assessment.title}</Text>
-                <Text style={styles.subHeaderText}>
-                    Strand: {assessment.strand}
-                </Text>
-                <Text style={styles.subHeaderText}>
-                    Sub Strand: {assessment.subStrand}
-                </Text>
-                <View style={styles.completionContainer}>
-                    <Text style={styles.completionText}>
-                        Completion: {assessment.completion}
+        <View>
+            <LinearGradient
+                colors={["#27487F", "#52B6DF"]}
+                style={styles.container}
+            >
+                {/* Semi-transparent ellipses for background styling */}
+                <View style={styles.ellipseRightLarge} />
+                <View style={styles.ellipseRightMedium} />
+                <View style={styles.ellipseRightSmall} />
+                <View style={styles.ellipseLeftLarge} />
+                <View style={styles.ellipseLeftMedium} />
+                <View style={styles.ellipseLeftSmall} />
+
+                {/* All content inside a padded container so text is readable */}
+                <View style={styles.contentContainer}>
+                    <Text style={styles.infoText}>
+                        Name: {assessment.title}
+                        {"\n"}
+                        Strand: {assessment.strand}
+                        {"\n"}
+                        Sub Strand: {assessment.subStrand}
+                        {"\n"}
+                        Completion:
+                        <View style={styles.completionPill}>
+                            <Text style={styles.completionPillText}>
+                                {assessment.completion}
+                            </Text>
+                        </View>
                     </Text>
-                </View>
-                <Text style={styles.dateText}>Date: {assessment.date}</Text>
-            </View>
 
-            <View style={styles.performanceLevelsContainer}>
-                <Text style={styles.performanceLevelsTitle}>
-                    Performance Levels
-                </Text>
+                    <Text style={styles.infoText}>Date: {assessment.date}</Text>
 
-                <View style={styles.levelRowContainer}>
-                    <View
-                        style={[
-                            styles.levelBox,
-                            { backgroundColor: "#FF4136" },
-                        ]}
-                    >
-                        <Text style={styles.levelBoxNumber}>5</Text>
-                        <Text style={styles.levelBoxText}>
-                            Below Expectations
-                        </Text>
+                    {/* Performance Bars */}
+                    <View style={styles.barsContainer}>
+                        <View style={[styles.bar, styles.barNegative]}>
+                            <Text style={styles.barText}>5</Text>
+                        </View>
+                        <View style={[styles.bar, styles.barApproaching]}>
+                            <Text style={styles.barText}>25</Text>
+                        </View>
+                        <View style={[styles.bar, styles.barMeeting]}>
+                            <Text style={styles.barText}>20</Text>
+                        </View>
+                        <View style={[styles.bar, styles.barExceeding]}>
+                            <Text style={styles.barText}>50</Text>
+                        </View>
                     </View>
-                    <View
-                        style={[
-                            styles.levelBox,
-                            { backgroundColor: "#FF851B" },
-                        ]}
-                    >
-                        <Text style={styles.levelBoxNumber}>25</Text>
-                        <Text style={styles.levelBoxText}>
-                            Approaching Expectations
-                        </Text>
-                    </View>
-                    <View
-                        style={[
-                            styles.levelBox,
-                            { backgroundColor: "#2ECC40" },
-                        ]}
-                    >
-                        <Text style={styles.levelBoxNumber}>20</Text>
-                        <Text style={styles.levelBoxText}>
-                            Meeting Expectations
-                        </Text>
-                    </View>
-                    <View
-                        style={[
-                            styles.levelBox,
-                            { backgroundColor: "#0074D9" },
-                        ]}
-                    >
-                        <Text style={styles.levelBoxNumber}>50</Text>
-                        <Text style={styles.levelBoxText}>
-                            Exceeding Expectations
-                        </Text>
+
+                    {/* Performance row */}
+                    <View style={styles.performanceRow}>
+                        {/* Below Expectations */}
+                        <View style={[styles.performanceBox]}>
+                            <Entypo
+                                name="emoji-sad"
+                                size={24}
+                                color="#C43D28"
+                                style={styles.performanceEmojiBelow}
+                            />
+                            <Text style={styles.performanceNumber}>
+                                {assessment.belowExpectations}
+                            </Text>
+                            <Text style={styles.performanceLabel}>
+                                Below Expectations
+                            </Text>
+                        </View>
+
+                        {/* Approaching Expectations */}
+                        <View style={[styles.performanceBox]}>
+                            <Entypo
+                                name="emoji-sad"
+                                size={24}
+                                color="#FBBC05"
+                                style={styles.performanceEmojiApproaching}
+                            />
+                            <Text style={styles.performanceNumber}>
+                                {assessment.approaching}
+                            </Text>
+                            <Text style={styles.performanceLabel}>
+                                Approaching Expectations
+                            </Text>
+                        </View>
+
+                        {/* Meeting Expectations */}
+                        <View style={[styles.performanceBox]}>
+                            <Entypo
+                                name="emoji-sad"
+                                size={24}
+                                color="#71BD4E"
+                                style={styles.performanceEmojiMeeting}
+                            />
+                            <Text style={styles.performanceNumber}>
+                                {assessment.meeting}
+                            </Text>
+                            <Text style={styles.performanceLabel}>
+                                Meeting Expectations
+                            </Text>
+                        </View>
+
+                        {/* Exceeding Expectations */}
+                        <View style={[styles.performanceBox]}>
+                            <Entypo
+                                name="emoji-sad"
+                                size={24}
+                                color="#0056D2"
+                                style={styles.performanceEmojiExceed}
+                            />
+                            <Text style={styles.performanceNumber}>
+                                {assessment.exceeding}
+                            </Text>
+                            <Text style={styles.performanceLabel}>
+                                Exceeding Expectations
+                            </Text>
+                        </View>
                     </View>
                 </View>
-            </View>
+            </LinearGradient>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 16,
+        width: 365,
+        height: 282,
+        borderRadius: 20,
+        overflow: "hidden",
+        position: "relative",
+    },
+    // Padded container so text and performance boxes are not behind ellipses
+    contentContainer: {
+        padding: 16,
         flex: 1,
-        backgroundColor: "#1A2B3C", // Dark background similar to the image
-        padding: 20,
+        justifyContent: "center",
     },
-    headerContainer: {
-        backgroundColor: "rgba(255,255,255,0.1)", // Subtle background for header
-        borderRadius: 10,
-        padding: 15,
-        marginBottom: 20,
+
+    // Semi-transparent ellipses (right side)
+    ellipseRightLarge: {
+        position: "absolute",
+        width: 217.66,
+        height: 295.1,
+        left: 251.94,
+        top: 0, // Shifted upward from original
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 295.1 / 2,
     },
-    headerText: {
-        color: "white",
-        fontSize: 18,
+    ellipseRightMedium: {
+        position: "absolute",
+        width: 135.06,
+        height: 183.11,
+        left: 293.24,
+        top: 60, // Shifted upward
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 183.11 / 2,
+    },
+    ellipseRightSmall: {
+        position: "absolute",
+        width: 70.32,
+        height: 95.34,
+        left: 325.61,
+        top: 120, // Shifted upward
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 95.34 / 2,
+    },
+
+    // Semi-transparent ellipses (left side)
+    ellipseLeftLarge: {
+        position: "absolute",
+        width: 111.62,
+        height: 151.33,
+        left: -21.53,
+        top: 0, // Shifted upward
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 151.33 / 2,
+    },
+    ellipseLeftMedium: {
+        position: "absolute",
+        width: 69.26,
+        height: 93.9,
+        left: -0.35,
+        top: 40, // Shifted upward
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 93.9 / 2,
+    },
+    ellipseLeftSmall: {
+        position: "absolute",
+        width: 36.06,
+        height: 48.89,
+        left: 16.25,
+        top: 62, // Shifted upward
+        backgroundColor: "#FFFFFF",
+        opacity: 0.1,
+        borderRadius: 48.89 / 2,
+    },
+
+    // Text info
+    infoText: {
+        fontFamily: "Poppins",
+        fontSize: 13,
+        lineHeight: 22,
+        letterSpacing: 0.2,
+        color: "#FFFFFF",
+        fontWeight: "500",
+        marginBottom: 2,
+    },
+
+    bar: {
+        height: 24,
+        borderRadius: 12,
+        marginRight: 10,
+        justifyContent: "center", // Center text vertically
+        alignItems: "center", // Center text horizontally
+    },
+    barText: {
+        color: "#FFFFFF",
+        fontSize: 12,
         fontWeight: "bold",
-        marginBottom: 5,
-    },
-    subHeaderText: {
-        color: "white",
-        fontSize: 16,
-        marginBottom: 5,
-    },
-    completionContainer: {
-        backgroundColor: "#2ECC40", // Green color for completion
-        alignSelf: "flex-start",
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        borderRadius: 5,
-        marginVertical: 10,
-    },
-    completionText: {
-        color: "white",
-        fontWeight: "bold",
-    },
-    dateText: {
-        color: "white",
-        fontSize: 14,
-    },
-    performanceLevelsContainer: {
-        backgroundColor: "rgba(255,255,255,0.1)",
-        borderRadius: 10,
-        padding: 15,
-    },
-    performanceLevelsTitle: {
-        color: "white",
-        fontSize: 16,
-        fontWeight: "bold",
-        marginBottom: 10,
         textAlign: "center",
+        paddingTop: 4,
     },
-    levelRowContainer: {
+
+    barsContainer: {
+        width: 320,
+        height: 24,
+        marginTop: 12,
+        marginBottom: 12,
+        flexDirection: "row",
+        alignItems: "flex-end",
+    },
+    bar: {
+        height: 24,
+        borderRadius: 12,
+        marginRight: 10,
+    },
+    barNegative: {
+        width: 30,
+        backgroundColor: "#C43D28",
+    },
+    barApproaching: {
+        width: 70,
+        backgroundColor: "#FBBC05",
+    },
+    barMeeting: {
+        width: 70,
+        backgroundColor: "#71BD4E",
+    },
+    barExceeding: {
+        width: 137,
+        backgroundColor: "#0056D2",
+    },
+
+    // Completion pill
+    completionPill: {
+        alignSelf: "flex-start",
+        backgroundColor: "#46BD84",
+        borderRadius: 30,
+        paddingHorizontal: 12,
+        marginHorizontal: 16,
+        paddingVertical: 4,
+        marginVertical: 4,
+    },
+    completionPillText: {
+        color: "#FFFFFF",
+        fontFamily: "Poppins",
+        fontSize: 13,
+        fontWeight: "500",
+    },
+
+    // Performance row
+    performanceRow: {
         flexDirection: "row",
         justifyContent: "space-between",
+        marginTop: 20,
     },
-    levelBox: {
-        width: "22%",
-        aspectRatio: 1,
+    performanceBox: {
+        width: 70,
+        height: 70,
         borderRadius: 10,
         justifyContent: "center",
         alignItems: "center",
-        padding: 5,
+        padding: 4,
     },
-    levelBoxNumber: {
-        color: "white",
-        fontSize: 18,
+    performanceEmojiBelow: {
+        fontSize: 20,
+        marginBottom: 2,
+    },
+    performanceEmojiApproaching: {
+        fontSize: 20,
+        marginBottom: 2,
+    },
+    performanceEmojiMeeting: {
+        fontSize: 20,
+        marginBottom: 2,
+    },
+    performanceEmojiExceed: {
+        fontSize: 20,
+        marginBottom: 2,
+    },
+    performanceNumber: {
+        color: "#FFFFFF",
+        fontSize: 14,
         fontWeight: "bold",
-        marginBottom: 5,
     },
-    levelBoxText: {
-        color: "white",
+    performanceLabel: {
+        color: "#FFFFFF",
         fontSize: 10,
         textAlign: "center",
+        marginTop: 2,
     },
 });

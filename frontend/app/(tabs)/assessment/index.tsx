@@ -10,6 +10,7 @@ import { ScreenWithBackground } from "../_layout";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AssessmentDetailCard from "@/components/ui/AssessmentDetailCard";
+import Card from "@/components/ui/Card";
 import { useAppDispatch, useAppSelector } from "@/features/store";
 import { fetchAssessments } from "@/features/assessment/crud";
 
@@ -40,7 +41,13 @@ export default function Assessment() {
 
     return (
         <ScreenWithBackground>
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView
+                style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
                 <FlatList
                     data={assessments}
                     renderItem={({ item }) => (
@@ -49,7 +56,9 @@ export default function Assessment() {
                     keyExtractor={(item) =>
                         item?.id?.toString() || Math.random().toString()
                     }
-                    contentContainerStyle={{ paddingBottom: 100 }}
+                    contentContainerStyle={{
+                        paddingBottom: 100,
+                    }}
                     onEndReachedThreshold={0.3}
                     ListFooterComponent={renderFooter}
                 />
