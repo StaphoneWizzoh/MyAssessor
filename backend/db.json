@@ -11,24 +11,14 @@
       "date": "11/9/2025"
     },
     {
-      "id": "0672",
-      "title": "Sample 1",
+      "id": "510b",
+      "title": "The Terror",
       "strand": "Letter Naming Lowercase",
       "subStrand": "F G H I J",
       "allDay": true,
-      "alert": true,
-      "completion": "",
-      "date": "Wed Mar 05 2025 12:08:24 GMT+0300 (East Africa Time)"
-    },
-    {
-      "id": "3ea8",
-      "title": "sample 2",
-      "strand": "Letter Naming Uppercase",
-      "subStrand": "A B C D E",
-      "allDay": true,
-      "alert": true,
-      "completion": "",
-      "date": "Wed Mar 05 2025 12:08:34 GMT+0300 (East Africa Time)"
+      "alert": false,
+      "completion": "0%",
+      "date": "3/6/2025"
     }
   ]
 }
