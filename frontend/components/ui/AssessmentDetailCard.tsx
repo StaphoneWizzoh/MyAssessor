@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     headerContainer: {
-        backgroundColor: "rgba(255,255,255,0.1)", // Subtle background for header
         borderRadius: 10,
         padding: 15,
         marginBottom: 20,
@@ -116,7 +115,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     performanceLevelsContainer: {
-        backgroundColor: "rgba(255,255,255,0.1)",
         borderRadius: 10,
         padding: 15,
     },
